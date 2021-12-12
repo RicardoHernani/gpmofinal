@@ -11,7 +11,7 @@ import com.ricardochaves.domain.Cirurgia;
 @Repository
 public interface CirurgiaRepository extends JpaRepository<Cirurgia, Integer>{
 
-	@Query("select distinct c from Cirurgia c where usuario_id=1 and c.data>= '2020-02-07' and c.data<= '2020-12-24'")
+	@Query("select distinct c from Cirurgia c where usuario_id=3 and c.data>= '2000-02-07' and c.data<= '2010-12-24'")
 	List<Cirurgia> buscarPorPeriodo();
 	
 }

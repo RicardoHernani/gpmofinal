@@ -1,6 +1,7 @@
 package com.ricardochaves.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,13 +14,13 @@ public class Referencia implements Serializable {
 	private Integer codigo;
 	
 	private String descricao;
-	private Double pontos;
-	private Double valor;
+	private BigDecimal pontos;
+	private BigDecimal valor;
 	
 	public Referencia() {
 	}
 
-	public Referencia(Integer codigo, String descricao, Double ponto, Double valor) {
+	public Referencia(Integer codigo, String descricao, BigDecimal ponto, BigDecimal valor) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
@@ -43,19 +44,19 @@ public class Referencia implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Double getPonto() {
+	public BigDecimal getPontos() {
 		return pontos;
 	}
 
-	public void setPonto(Double ponto) {
-		this.pontos = ponto;
+	public void setPontos(BigDecimal pontos) {
+		this.pontos = pontos;
 	}
 
-	public Double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 

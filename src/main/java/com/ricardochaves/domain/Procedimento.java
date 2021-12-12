@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,16 +27,20 @@ public class Procedimento implements Serializable {
 	@ManyToOne
 	private Cirurgia cirurgia;
 	
+	@OneToOne
+	private Referencia referencia;
+	
 	public Procedimento() {
 	}
 
-	public Procedimento(Integer id, Integer tipo, Integer premio, Integer codigo, Cirurgia cirurgia) {
+	public Procedimento(Integer id, Integer tipo, Integer premio, Integer codigo, Cirurgia cirurgia, Referencia referencia) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
 		this.premio = premio;
 		this.codigo = codigo;
 		this.cirurgia = cirurgia;
+		this.referencia = referencia;
 	}
 
 	public Integer getId() {
@@ -77,6 +82,16 @@ public class Procedimento implements Serializable {
 	public void setCirurgia(Cirurgia cirurgia) {
 		this.cirurgia = cirurgia;
 	}
+	
+	
+
+	public Referencia getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(Referencia referencia) {
+		this.referencia = referencia;
+	}
 
 	@Override
 	public int hashCode() {
@@ -102,7 +117,6 @@ public class Procedimento implements Serializable {
 			return false;
 		return true;
 	}
-	
 	
 
 }
