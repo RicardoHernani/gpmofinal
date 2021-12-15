@@ -19,6 +19,8 @@ public class UsuarioService {
 				+ ", Tipo: " + Usuario.class.getName()));
 	}
 	
-	
+	public Usuario insert(Usuario obj) {
+		return usuarioRepository.save(obj);
+	}
 	
 }
