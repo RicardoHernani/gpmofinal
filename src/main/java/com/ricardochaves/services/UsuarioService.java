@@ -1,8 +1,10 @@
 package com.ricardochaves.services;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.ricardochaves.domain.Usuario;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.services.exceptions.ObjectNotFoundException;
@@ -21,6 +23,15 @@ public class UsuarioService {
 	
 	public Usuario insert(Usuario obj) {
 		return usuarioRepository.save(obj);
+	}
+	
+	public Usuario updateSenha(Usuario obj) {
+		return usuarioRepository.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		findById(id);
+		usuarioRepository.deleteById(id);
 	}
 	
 }

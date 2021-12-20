@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ricardochaves.domain.Usuario;
 import com.ricardochaves.dto.UsuarioDTO;
+import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.services.UsuarioService;
 
 @RestController
@@ -21,6 +22,9 @@ public class UsuarioResource {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id) {
@@ -36,4 +40,16 @@ public class UsuarioResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> updateSenha(@RequestBody Usuario obj, @PathVariable Integer id) {
+		obj.setId(id);
+		obj = usuarioService.updateSenha(obj);
+		return ResponseEntity.noContent().build(); 
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Usuario> delete(@PathVariable Integer id) {
+		usuarioRepository.deleteById(id);
+		return ResponseEntity.noContent().build();
+	}
 }
