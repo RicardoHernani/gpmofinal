@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Usuario implements Serializable {
@@ -15,8 +18,15 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotEmpty(message="O nome de usuário é de preenchimento obrigatório")
+	@Length(min=3, max=10, message="O nome de usuário deve conter entre 3 e 10 caracteres")
 	private String nome;
+	
+	@NotEmpty(message="O email é de preenchimento obrigatório")
 	private String email;
+	
+	@NotEmpty(message="A senha é de preenchimento obrigatório")
+	@Length(min=6, max=10, message="A senha deve conter entre 6 e 10 caracteres")
 	private String senha;
 	
 	public Usuario() {		

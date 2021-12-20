@@ -1,5 +1,6 @@
 package com.ricardochaves.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class UsuarioService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado! id: " + id
 				+ ", Tipo: " + Usuario.class.getName()));
 	}
+	
+	public List<Usuario> findAll(){
+		return usuarioRepository.findAll();
+}
 	
 	public Usuario insert(Usuario obj) {
 		return usuarioRepository.save(obj);

@@ -1,6 +1,10 @@
 package com.ricardochaves.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +31,20 @@ public class UsuarioResource {
 	private UsuarioRepository usuarioRepository;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id) {
+	public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
 		Usuario obj = usuarioService.findById(id);
-		return ResponseEntity.ok().body(new UsuarioDTO(obj)); 
+		return ResponseEntity.ok().body(obj); 
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<UsuarioDTO>> findAll() {
+		List <Usuario> list = usuarioService.findAll();
+		List<UsuarioDTO> listDto = list.stream().map(x -> new UsuarioDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto); 
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Usuario obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Usuario obj) {
 		obj = usuarioService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -41,7 +52,7 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> updateSenha(@RequestBody Usuario obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> updateSenha(@Valid @RequestBody Usuario obj, @PathVariable Integer id) {
 		obj.setId(id);
 		obj = usuarioService.updateSenha(obj);
 		return ResponseEntity.noContent().build(); 
