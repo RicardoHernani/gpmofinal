@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -107,8 +106,6 @@ public class Cirurgia implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 	
 }

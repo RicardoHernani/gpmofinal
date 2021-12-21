@@ -1,14 +1,17 @@
 package com.ricardochaves.resources;
 
-import java.util.List;
 
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ricardochaves.domain.Cirurgia;
+import com.ricardochaves.resources.utils.URL;
 import com.ricardochaves.services.CirurgiaService;
 
 @RestController
@@ -23,4 +26,21 @@ public class CirurgiaResource {
 		List<Cirurgia> list = cirurgiaService.buscarPorPeriodo();
 		return ResponseEntity.ok().body(list);
 	}
+	
+	@RequestMapping(value="/page", method=RequestMethod.GET)
+	public ResponseEntity<Page<Cirurgia>> buscarPorPeriodoPage(
+			@RequestParam(value="idUsuario", defaultValue="") String idUsuario, 
+			@RequestParam(value="dataInicial", defaultValue="") String dataInicial,
+			@RequestParam(value="dataFinal", defaultValue="") String dataFinal,
+			@RequestParam(value="page", defaultValue="0") Integer page,
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+			@RequestParam(value="orderBy", defaultValue="data") String orderBy,
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
+			Integer idUser = Integer.parseInt(idUsuario);
+			LocalDate inicio = URL.convertDate(dataInicial, LocalDate.EPOCH);
+			LocalDate fim = URL.convertDate(dataFinal, LocalDate.now());
+			Page<Cirurgia> list = cirurgiaService.encontrarPorData(idUser, inicio, fim, page, linesPerPage, orderBy, direction);
+			return ResponseEntity.ok().body(list);
+	}
+	
 }
