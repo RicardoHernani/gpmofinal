@@ -10,11 +10,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ricardochaves.domain.Cirurgia;
+import com.ricardochaves.dto.CirurgiaDTO;
 
 @Repository
 public interface CirurgiaRepository extends JpaRepository<Cirurgia, Integer>{
 	
 	@Query("select distinct c from Cirurgia c where usuario_id= :idUsuario and c.data>= :dataInicial and c.data<= :dataFinal")
-	Page<Cirurgia> dateIntervalSearch(@Param("idUsuario") Integer idUsuario, @Param("dataInicial") LocalDate dataInicial, @Param("dataFinal") LocalDate dataFinal, Pageable pageRequest);
+	Page<CirurgiaDTO> dateIntervalSearch(@Param("idUsuario") Integer idUsuario, @Param("dataInicial") LocalDate dataInicial, @Param("dataFinal") LocalDate dataFinal, Pageable pageRequest);
 	
 }

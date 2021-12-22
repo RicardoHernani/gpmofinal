@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ricardochaves.domain.Cirurgia;
+import com.ricardochaves.dto.CirurgiaDTO;
 import com.ricardochaves.resources.utils.URL;
 import com.ricardochaves.services.CirurgiaService;
 
@@ -23,7 +23,7 @@ public class CirurgiaResource {
 	private CirurgiaService cirurgiaService;
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<Cirurgia>> buscarPorPeriodoPage(
+	public ResponseEntity<Page<CirurgiaDTO>> buscarPorPeriodoPage(
 			@RequestParam(value="idUsuario", defaultValue="") String idUsuario, 
 			@RequestParam(value="dataInicial", defaultValue="") String dataInicial,
 			@RequestParam(value="dataFinal", defaultValue="") String dataFinal,
@@ -34,7 +34,7 @@ public class CirurgiaResource {
 			Integer idUser = Integer.parseInt(idUsuario);
 			LocalDate inicio = URL.convertDate(dataInicial, LocalDate.EPOCH);
 			LocalDate fim = URL.convertDate(dataFinal, LocalDate.now());
-			Page<Cirurgia> list = cirurgiaService.encontrarPorData(idUser, inicio, fim, page, linesPerPage, orderBy, direction);
+			Page<CirurgiaDTO> list = cirurgiaService.encontrarPorData(idUser, inicio, fim, page, linesPerPage, orderBy, direction);
 			return ResponseEntity.ok().body(list);
 	}
 	
