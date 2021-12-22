@@ -23,7 +23,7 @@ public class Cirurgia implements Serializable {
 	
 	private Integer matricula;
 	
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate data;
 	
 	@ManyToOne

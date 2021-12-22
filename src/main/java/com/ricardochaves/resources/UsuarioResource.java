@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,9 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(listDto); 
 	}
 	
+	
 	@RequestMapping(method=RequestMethod.POST)
+	@Transactional
 	public ResponseEntity<Void> insert(@Valid @RequestBody Usuario obj) {
 		obj = usuarioService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -52,6 +55,7 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	@Transactional
 	public ResponseEntity<Void> updateSenha(@Valid @RequestBody Usuario obj, @PathVariable Integer id) {
 		obj.setId(id);
 		obj = usuarioService.updateSenha(obj);
@@ -59,6 +63,7 @@ public class UsuarioResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@Transactional
 	public ResponseEntity<Usuario> delete(@PathVariable Integer id) {
 		usuarioRepository.deleteById(id);
 		return ResponseEntity.noContent().build();
