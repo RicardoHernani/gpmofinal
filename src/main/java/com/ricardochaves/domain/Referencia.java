@@ -20,11 +20,11 @@ public class Referencia implements Serializable {
 	public Referencia() {
 	}
 
-	public Referencia(Integer codigo, String descricao, BigDecimal ponto, BigDecimal valor) {
+	public Referencia(Integer codigo, String descricao, BigDecimal pontos, BigDecimal valor) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
-		this.pontos = ponto;
+		this.pontos = pontos;
 		this.valor = valor;
 	}
 
