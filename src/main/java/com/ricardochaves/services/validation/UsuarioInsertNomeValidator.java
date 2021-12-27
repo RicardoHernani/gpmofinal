@@ -13,23 +13,23 @@ import com.ricardochaves.form.UsuarioForm;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.resources.exception.FieldMessage;
 
-public class UsuarioInsertEmailValidator implements ConstraintValidator<UsuarioInsertEmail, UsuarioForm> {
-
+public class UsuarioInsertNomeValidator implements ConstraintValidator<UsuarioInsertNome, UsuarioForm> {
+	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
+	
 	@Override
-	public void initialize(UsuarioInsertEmail ann) {
+	public void initialize(UsuarioInsertNome ann) {
 	}
 
 	@Override
 	public boolean isValid(UsuarioForm objForm, ConstraintValidatorContext context) {
-
+		
 		List<FieldMessage> list = new ArrayList<>();
 
-		Usuario aux = usuarioRepository.findByEmail(objForm.getEmail());
+		Usuario aux = usuarioRepository.findByNome(objForm.getNome());
 		if (aux != null) {
-			list.add(new FieldMessage("email", "Esse Email já existe"));
+			list.add(new FieldMessage("Nome", "Esse nome de Usuário já existe"));
 		}
 
 		for (FieldMessage e : list) {
