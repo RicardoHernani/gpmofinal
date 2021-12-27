@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ricardochaves.domain.Usuario;
+import com.ricardochaves.form.UsuarioForm;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
@@ -37,6 +38,10 @@ public class UsuarioService {
 	public void delete(Integer id) {
 		findById(id);
 		usuarioRepository.deleteById(id);
+	}
+	
+	public Usuario fromForm(UsuarioForm objForm) {
+		return new Usuario(objForm.getId(), objForm.getNome(), objForm.getEmail(), objForm.getSenha());
 	}
 	
 }

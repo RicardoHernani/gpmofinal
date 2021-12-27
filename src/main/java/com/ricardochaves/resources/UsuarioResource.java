@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ricardochaves.domain.Usuario;
 import com.ricardochaves.dto.UsuarioDTO;
+import com.ricardochaves.form.UsuarioForm;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.services.UsuarioService;
 
@@ -47,7 +48,8 @@ public class UsuarioResource {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@Transactional
-	public ResponseEntity<Void> insert(@Valid @RequestBody Usuario obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioForm objForm) {
+		Usuario obj = usuarioService.fromForm(objForm);
 		obj = usuarioService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -56,7 +58,8 @@ public class UsuarioResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	@Transactional
-	public ResponseEntity<Void> updateSenha(@Valid @RequestBody Usuario obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> updateSenha(@Valid @RequestBody UsuarioForm objForm, @PathVariable Integer id) {
+		Usuario obj = usuarioService.fromForm(objForm);
 		obj.setId(id);
 		obj = usuarioService.updateSenha(obj);
 		return ResponseEntity.noContent().build(); 
