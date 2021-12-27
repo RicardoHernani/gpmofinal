@@ -9,10 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ricardochaves.domain.Usuario;
+import com.ricardochaves.form.UsuarioForm;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.resources.exception.FieldMessage;
 
-public class UsuarioInsertEmailValidator implements ConstraintValidator<UsuarioInsertEmail, Usuario> {
+public class UsuarioInsertEmailValidator implements ConstraintValidator<UsuarioInsertEmail, UsuarioForm> {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -22,11 +23,11 @@ public class UsuarioInsertEmailValidator implements ConstraintValidator<UsuarioI
 	}
 
 	@Override
-	public boolean isValid(Usuario obj, ConstraintValidatorContext context) {
+	public boolean isValid(UsuarioForm objForm, ConstraintValidatorContext context) {
 
 		List<FieldMessage> list = new ArrayList<>();
 
-		Usuario aux = usuarioRepository.findByEmail(obj.getEmail());
+		Usuario aux = usuarioRepository.findByEmail(objForm.getEmail());
 		if (aux != null) {
 			list.add(new FieldMessage("email", "O Email já existe"));
 		}

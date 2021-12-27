@@ -25,9 +25,10 @@ public class UsuarioService {
 	
 	public List<Usuario> findAll(){
 		return usuarioRepository.findAll();
-}
+	}
 	
 	public Usuario insert(Usuario obj) {
+		obj.setId(null);
 		return usuarioRepository.save(obj);
 	}
 	

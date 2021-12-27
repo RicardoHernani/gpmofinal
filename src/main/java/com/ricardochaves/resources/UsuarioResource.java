@@ -45,7 +45,6 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(listDto); 
 	}
 	
-	
 	@RequestMapping(method=RequestMethod.POST)
 	@Transactional
 	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioForm objForm) {

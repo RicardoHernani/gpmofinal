@@ -8,8 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.ricardochaves.domain.Usuario;
+import com.ricardochaves.services.validation.UsuarioInsertEmail;
 
-
+@UsuarioInsertEmail
 public class UsuarioForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
