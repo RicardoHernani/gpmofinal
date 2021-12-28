@@ -21,6 +21,7 @@ public class Procedimento implements Serializable {
 	
 	private Integer tipo;
 	private Integer premio;
+	
 	private Integer codigo;
 	
 	@JsonIgnore
