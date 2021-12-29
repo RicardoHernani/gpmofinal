@@ -22,8 +22,6 @@ public class Procedimento implements Serializable {
 	private Integer tipo;
 	private Integer premio;
 	
-	private Integer codigo;
-	
 	@JsonIgnore
 	@ManyToOne
 	private Cirurgia cirurgia;
@@ -34,12 +32,12 @@ public class Procedimento implements Serializable {
 	public Procedimento() {
 	}
 
-	public Procedimento(Integer id, Integer tipo, Integer premio, Integer codigo, Cirurgia cirurgia, Referencia referencia) {
+	public Procedimento(Integer id, Integer tipo, Integer premio, Cirurgia cirurgia, Referencia referencia) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
 		this.premio = premio;
-		this.codigo = codigo;
+		
 		this.cirurgia = cirurgia;
 		this.referencia = referencia;
 	}
@@ -68,14 +66,6 @@ public class Procedimento implements Serializable {
 		this.premio = premio;
 	}
 
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
-
 	public Cirurgia getCirurgia() {
 		return cirurgia;
 	}
@@ -84,8 +74,6 @@ public class Procedimento implements Serializable {
 		this.cirurgia = cirurgia;
 	}
 	
-	
-
 	public Referencia getReferencia() {
 		return referencia;
 	}
@@ -118,6 +106,5 @@ public class Procedimento implements Serializable {
 			return false;
 		return true;
 	}
-	
 
 }

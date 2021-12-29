@@ -31,7 +31,7 @@ public class ProcedimentoService {
 	public Procedimento fromForm(ProcedimentoForm objForm) {
 		Referencia ref = referenciaRepository.getById(objForm.getReferenciaCodigo());
 		Cirurgia cir = cirurgiaRepository.getById(objForm.getCirurgiaId());
-		Procedimento pro = new Procedimento(null, objForm.getTipo(), objForm.getPremio(), objForm.getReferenciaCodigo(), cir, ref);
+		Procedimento pro = new Procedimento(null, objForm.getTipo(), objForm.getPremio(), cir, ref);
 		cir.getProcedimentos().add(pro);
 		return pro;
 	}

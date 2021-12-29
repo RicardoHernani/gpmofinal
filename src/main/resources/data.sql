@@ -14,18 +14,18 @@ INSERT INTO CIRURGIA(matricula, data, usuario_id) VALUES(44444444, '2010-12-24',
 INSERT INTO CIRURGIA(matricula, data, usuario_id) VALUES(55555555, '1998-05-13', 3);
 INSERT INTO CIRURGIA(matricula, data, usuario_id) VALUES(66666666, '2019-06-27', 3);
 
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 1, 31102360, 1);
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(2, 1, 31102077, 1);
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 1, 30908027, 2);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 1,  1);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(2, 1,  1);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 1,  2);
 
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 2, 30202094, 3);
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 1, 30715016, 4);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 2,  3);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 1,  4);
 
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 2, 31201113, 5);
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(2, 2, 30914070, 6);
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 1, 30908027, 7);
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 2, 31003567, 8);
-INSERT INTO PROCEDIMENTO(tipo, premio, codigo, cirurgia_id) VALUES(1, 2, 30729017, 9);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 2,  5);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(2, 2,  6);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 1,  7);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 2,  8);
+INSERT INTO PROCEDIMENTO(tipo, premio, cirurgia_id) VALUES(1, 2,  9);
 
 INSERT INTO `referencia` (`codigo`, `descricao`, `pontos`, `valor`) VALUES
 (10101012, 'Consulta Medica Em Consultorio (No Horario Normal Ou Pre-estabelecido)', 1, 50),
