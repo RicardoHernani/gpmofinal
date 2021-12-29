@@ -1,5 +1,7 @@
 package com.ricardochaves.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.ricardochaves.form.ProcedimentoForm;
 import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.ProcedimentoRepository;
 import com.ricardochaves.repositories.ReferenciaRepository;
+import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProcedimentoService {
@@ -22,6 +25,12 @@ public class ProcedimentoService {
 	
 	@Autowired
 	private CirurgiaRepository cirurgiaRepository;
+	
+	public Procedimento findById(Integer id) {
+		Optional<Procedimento> obj = procedimentoRepository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Procedimento não encontrado! id: " + id
+				+ ", Tipo: " + Procedimento.class.getName()));
+	}
 	
 	public Procedimento insert(Procedimento obj) {
 		obj.setId(null);

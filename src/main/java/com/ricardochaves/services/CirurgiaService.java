@@ -1,6 +1,7 @@
 package com.ricardochaves.services;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import com.ricardochaves.dto.CirurgiaDTO;
 import com.ricardochaves.form.CirurgiaForm;
 import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.UsuarioRepository;
+import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CirurgiaService {
@@ -23,6 +25,12 @@ public class CirurgiaService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	public Cirurgia findById(Integer id) {
+		Optional<Cirurgia> obj = cirurgiaRepository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Cirurgia não encontrada! id: " + id
+				+ ", Tipo: " + Cirurgia.class.getName()));
+	}
 	
 	public Page<CirurgiaDTO> encontrarPorData(Integer idUsuario, LocalDate dataInicial, LocalDate dataFinal, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
