@@ -64,5 +64,13 @@ public class CirurgiaResource {
 		return ResponseEntity.created(uri).build();
 	}
 
+	@Transactional
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)	
+	public ResponseEntity<Void> update(@Valid @RequestBody CirurgiaDTO objDto, @PathVariable Integer id) {
+		Cirurgia obj = cirurgiaService.fromDTO(objDto);
+		obj.setId(id);
+		obj = cirurgiaService.update(obj);
+		return ResponseEntity.noContent().build(); 
+	}
 	
 }

@@ -57,10 +57,10 @@ public class UsuarioResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	@Transactional
-	public ResponseEntity<Void> updateSenha(@Valid @RequestBody UsuarioForm objForm, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioForm objForm, @PathVariable Integer id) {
 		Usuario obj = usuarioService.fromForm(objForm);
 		obj.setId(id);
-		obj = usuarioService.updateSenha(obj);
+		obj = usuarioService.update(obj);
 		return ResponseEntity.noContent().build(); 
 	}
 	

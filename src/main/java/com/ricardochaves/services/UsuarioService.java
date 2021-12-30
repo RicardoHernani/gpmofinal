@@ -32,7 +32,8 @@ public class UsuarioService {
 		return usuarioRepository.save(obj);
 	}
 	
-	public Usuario updateSenha(Usuario obj) {
+	public Usuario update(Usuario obj) {
+		findById(obj.getId());
 		return usuarioRepository.save(obj);
 	}
 	

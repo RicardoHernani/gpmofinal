@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ricardochaves.domain.Cirurgia;
 import com.ricardochaves.domain.Procedimento;
@@ -13,8 +15,11 @@ public class CirurgiaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@NotNull(message="A matrícula é de preenchimento obrigatório!")
 	private Integer matricula;
 
+	@NotNull(message="A data é de preenchimento obrigatório!")
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private LocalDate data;
 	
