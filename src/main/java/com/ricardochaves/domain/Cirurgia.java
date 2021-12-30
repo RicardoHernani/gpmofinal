@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,7 +31,7 @@ public class Cirurgia implements Serializable {
 	@ManyToOne
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "cirurgia")
+	@OneToMany(mappedBy = "cirurgia", cascade=CascadeType.ALL)
 	private Set<Procedimento> procedimentos = new HashSet<Procedimento>();
 	
 	public Cirurgia() {

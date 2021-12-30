@@ -63,4 +63,8 @@ public class CirurgiaService {
 		newObj.setData(objForm.getData());
 	}
 	
+	public void delete(Integer id) {
+		findById(id);
+		cirurgiaRepository.deleteById(id);
+	}
 }

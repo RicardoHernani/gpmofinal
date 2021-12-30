@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.ricardochaves.domain.Usuario;
 import com.ricardochaves.dto.UsuarioDTO;
 import com.ricardochaves.form.UsuarioForm;
-import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.services.UsuarioService;
 
 @RestController
@@ -28,9 +27,6 @@ public class UsuarioResource {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
-	@Autowired
-	private UsuarioRepository usuarioRepository;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
@@ -45,8 +41,8 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(listDto); 
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
 	@Transactional
+	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioForm objForm) {
 		Usuario obj = usuarioService.fromForm(objForm);
 		obj = usuarioService.insert(obj);
@@ -55,8 +51,8 @@ public class UsuarioResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	@Transactional
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioForm objForm, @PathVariable Integer id) {
 		Usuario obj = usuarioService.fromForm(objForm);
 		obj.setId(id);
@@ -64,10 +60,10 @@ public class UsuarioResource {
 		return ResponseEntity.noContent().build(); 
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	@Transactional
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Usuario> delete(@PathVariable Integer id) {
-		usuarioRepository.deleteById(id);
+		usuarioService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

@@ -72,4 +72,11 @@ public class CirurgiaResource {
 		return ResponseEntity.noContent().build(); 
 	}
 	
+	@Transactional
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Cirurgia> delete(@PathVariable Integer id) {
+		cirurgiaService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
