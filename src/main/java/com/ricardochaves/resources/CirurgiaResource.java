@@ -53,7 +53,6 @@ public class CirurgiaResource {
 			return ResponseEntity.ok().body(list);
 	}
 	
-	
 	@RequestMapping(method=RequestMethod.POST)
 	@Transactional
 	public ResponseEntity<Void> insert(@Valid @RequestBody CirurgiaForm objForm) {
@@ -66,8 +65,8 @@ public class CirurgiaResource {
 
 	@Transactional
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)	
-	public ResponseEntity<Void> update(@Valid @RequestBody CirurgiaDTO objDto, @PathVariable Integer id) {
-		Cirurgia obj = cirurgiaService.fromDTO(objDto);
+	public ResponseEntity<Void> update(@Valid @RequestBody CirurgiaForm objForm, @PathVariable Integer id) {
+		Cirurgia obj = cirurgiaService.fromFormUpdate(objForm);
 		obj.setId(id);
 		obj = cirurgiaService.update(obj);
 		return ResponseEntity.noContent().build(); 

@@ -48,19 +48,19 @@ public class CirurgiaService {
 		return cir;
 	}
 	
-	public Cirurgia update(Cirurgia obj) {
-		Cirurgia newObj = findById(obj.getId());
-		updateData(newObj, obj);
+	public Cirurgia update(Cirurgia objForm) {
+		Cirurgia newObj = findById(objForm.getId());
+		updateData(newObj, objForm);
 		return cirurgiaRepository.save(newObj);
 	}
 	
-	public Cirurgia fromDTO(CirurgiaDTO objDto) {												//Usei o CirurgiaDTO e não o CirurgiaForm porque o DTO já tinha o construtor 
-		return new Cirurgia(objDto.getId(), objDto.getMatricula(), objDto.getData(), null);		// da forma que eu precisava.
+	public Cirurgia fromFormUpdate(CirurgiaForm objForm) {												 
+		return new Cirurgia(objForm.getUsuarioId(), objForm.getMatricula(), objForm.getData(), null);	
 	}
 	
-	private void updateData(Cirurgia newObj, Cirurgia obj) {
-		newObj.setMatricula(obj.getMatricula());
-		newObj.setData(obj.getData());
+	private void updateData(Cirurgia newObj, Cirurgia objForm) {
+		newObj.setMatricula(objForm.getMatricula());
+		newObj.setData(objForm.getData());
 	}
 	
 }
