@@ -9,6 +9,7 @@ import com.ricardochaves.domain.Cirurgia;
 import com.ricardochaves.domain.Procedimento;
 import com.ricardochaves.domain.Referencia;
 import com.ricardochaves.form.ProcedimentoForm;
+import com.ricardochaves.form.ProcedimentoFormUpdate;
 import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.ProcedimentoRepository;
 import com.ricardochaves.repositories.ReferenciaRepository;
@@ -51,14 +52,17 @@ public class ProcedimentoService {
 		return procedimentoRepository.save(newObj);
 	}
 	
-	public Procedimento fromFormUpdate(ProcedimentoForm objForm) {								//Desse jeito altera tipo e premio. 				 
-		return new Procedimento(null, objForm.getTipo(), objForm.getPremio(), null, null);	   //Não muda o codigo. E tipo e premio devem ser passados
+	public Procedimento fromFormUpdate(ProcedimentoFormUpdate objForm) {						 				 
+		Referencia ref = referenciaRepository.getById(objForm.getReferenciaCodigo());
+		ref.getCodigo();
+		return new Procedimento(null, objForm.getTipo(), objForm.getPremio(), null, ref);	   
 	}
 	
 	private void updateData(Procedimento newObj, Procedimento obj) {
 		newObj.setTipo(obj.getTipo());
 		newObj.setPremio(obj.getPremio());
-		
+		newObj.setReferencia(obj.getReferencia());
+
 	}
 	
 }

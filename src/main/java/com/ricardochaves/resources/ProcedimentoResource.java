@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ricardochaves.domain.Procedimento;
 import com.ricardochaves.form.ProcedimentoForm;
+import com.ricardochaves.form.ProcedimentoFormUpdate;
 import com.ricardochaves.services.ProcedimentoService;
 
 @RestController
@@ -43,12 +44,11 @@ public class ProcedimentoResource {
 	
 	@Transactional
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)	
-	public ResponseEntity<Void> update(@Valid @RequestBody ProcedimentoForm objForm, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody ProcedimentoFormUpdate objForm, @PathVariable Integer id) {
 		Procedimento obj = procedimentoService.fromFormUpdate(objForm);
 		obj.setId(id);
 		obj = procedimentoService.update(obj);
 		return ResponseEntity.noContent().build(); 
 	}
-	
 	
 }
