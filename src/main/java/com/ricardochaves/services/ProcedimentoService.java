@@ -45,4 +45,20 @@ public class ProcedimentoService {
 		return pro;
 	}
 	
+	public Procedimento update(Procedimento obj) {
+		Procedimento newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return procedimentoRepository.save(newObj);
+	}
+	
+	public Procedimento fromFormUpdate(ProcedimentoForm objForm) {								//Desse jeito altera tipo e premio. 				 
+		return new Procedimento(null, objForm.getTipo(), objForm.getPremio(), null, null);	   //Não muda o codigo. E tipo e premio devem ser passados
+	}
+	
+	private void updateData(Procedimento newObj, Procedimento obj) {
+		newObj.setTipo(obj.getTipo());
+		newObj.setPremio(obj.getPremio());
+		
+	}
+	
 }

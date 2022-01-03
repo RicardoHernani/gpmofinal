@@ -53,8 +53,8 @@ public class CirurgiaResource {
 			return ResponseEntity.ok().body(list);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
 	@Transactional
+	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CirurgiaForm objForm) {
 		Cirurgia obj = cirurgiaService.fromForm(objForm);
 		obj = cirurgiaService.insert(obj);

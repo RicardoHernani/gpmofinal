@@ -41,5 +41,14 @@ public class ProcedimentoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@Transactional
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)	
+	public ResponseEntity<Void> update(@Valid @RequestBody ProcedimentoForm objForm, @PathVariable Integer id) {
+		Procedimento obj = procedimentoService.fromFormUpdate(objForm);
+		obj.setId(id);
+		obj = procedimentoService.update(obj);
+		return ResponseEntity.noContent().build(); 
+	}
+	
 	
 }

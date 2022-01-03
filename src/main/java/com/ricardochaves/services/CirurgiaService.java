@@ -55,7 +55,7 @@ public class CirurgiaService {
 	}
 	
 	public Cirurgia fromFormUpdate(CirurgiaForm objForm) {												 
-		return new Cirurgia(objForm.getUsuarioId(), objForm.getMatricula(), objForm.getData(), null);	
+		return new Cirurgia(null, objForm.getMatricula(), objForm.getData(), null);	
 	}
 	
 	private void updateData(Cirurgia newObj, Cirurgia objForm) {
