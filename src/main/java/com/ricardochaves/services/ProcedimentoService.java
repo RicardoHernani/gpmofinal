@@ -65,4 +65,9 @@ public class ProcedimentoService {
 
 	}
 	
+	public void delete(Integer id) {
+		findById(id);
+		procedimentoRepository.deleteById(id);
+	}
+	
 }

@@ -51,4 +51,11 @@ public class ProcedimentoResource {
 		return ResponseEntity.noContent().build(); 
 	}
 	
+	@Transactional
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Procedimento> delete(@PathVariable Integer id) {
+		procedimentoService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
