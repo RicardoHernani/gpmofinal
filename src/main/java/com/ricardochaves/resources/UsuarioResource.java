@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.ricardochaves.domain.Usuario;
 import com.ricardochaves.dto.UsuarioDTO;
 import com.ricardochaves.form.UsuarioForm;
+import com.ricardochaves.form.UsuarioFormUpdate;
 import com.ricardochaves.services.UsuarioService;
 
 @RestController
@@ -53,8 +54,8 @@ public class UsuarioResource {
 	
 	@Transactional
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioForm objForm, @PathVariable Integer id) {
-		Usuario obj = usuarioService.fromForm(objForm);
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioFormUpdate objForm, @PathVariable Integer id) {
+		Usuario obj = usuarioService.fromFormUpdate(objForm);
 		obj.setId(id);
 		obj = usuarioService.update(obj);
 		return ResponseEntity.noContent().build(); 
@@ -66,4 +67,5 @@ public class UsuarioResource {
 		usuarioService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
 }

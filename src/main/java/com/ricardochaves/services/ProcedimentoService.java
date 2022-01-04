@@ -62,7 +62,6 @@ public class ProcedimentoService {
 		newObj.setTipo(obj.getTipo());
 		newObj.setPremio(obj.getPremio());
 		newObj.setReferencia(obj.getReferencia());
-
 	}
 	
 	public void delete(Integer id) {
