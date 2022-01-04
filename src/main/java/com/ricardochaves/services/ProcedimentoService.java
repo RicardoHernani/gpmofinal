@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.ricardochaves.domain.Cirurgia;
 import com.ricardochaves.domain.Procedimento;
 import com.ricardochaves.domain.Referencia;
+import com.ricardochaves.enums.PremioProcedimento;
+import com.ricardochaves.enums.TipoProcedimento;
 import com.ricardochaves.form.ProcedimentoForm;
 import com.ricardochaves.form.ProcedimentoFormUpdate;
 import com.ricardochaves.repositories.CirurgiaRepository;
@@ -41,7 +43,7 @@ public class ProcedimentoService {
 	public Procedimento fromForm(ProcedimentoForm objForm) {
 		Referencia ref = referenciaRepository.getById(objForm.getReferenciaCodigo());
 		Cirurgia cir = cirurgiaRepository.getById(objForm.getCirurgiaId());
-		Procedimento pro = new Procedimento(null, objForm.getTipo(), objForm.getPremio(), cir, ref);
+		Procedimento pro = new Procedimento(null, TipoProcedimento.toEnum(objForm.getTipo()), PremioProcedimento.toEnum(objForm.getPremio()), cir, ref);
 		cir.getProcedimentos().add(pro);
 		return pro;
 	}
@@ -55,7 +57,7 @@ public class ProcedimentoService {
 	public Procedimento fromFormUpdate(ProcedimentoFormUpdate objForm) {						 				 
 		Referencia ref = referenciaRepository.getById(objForm.getReferenciaCodigo());
 		ref.getCodigo();
-		return new Procedimento(null, objForm.getTipo(), objForm.getPremio(), null, ref);	   
+		return new Procedimento(null, TipoProcedimento.toEnum(objForm.getTipo()), PremioProcedimento.toEnum(objForm.getPremio()), null, ref);	   
 	}
 	
 	private void updateData(Procedimento newObj, Procedimento obj) {

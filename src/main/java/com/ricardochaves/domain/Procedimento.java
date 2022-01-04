@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ricardochaves.enums.PremioProcedimento;
+import com.ricardochaves.enums.TipoProcedimento;
 
 @Entity
 public class Procedimento implements Serializable {
@@ -32,12 +34,11 @@ public class Procedimento implements Serializable {
 	public Procedimento() {
 	}
 
-	public Procedimento(Integer id, Integer tipo, Integer premio, Cirurgia cirurgia, Referencia referencia) {
+	public Procedimento(Integer id, TipoProcedimento tipo, PremioProcedimento premio, Cirurgia cirurgia, Referencia referencia) {
 		super();
 		this.id = id;
-		this.tipo = tipo;
-		this.premio = premio;
-		
+		this.tipo = tipo.getCod();
+		this.premio = premio.getCod();
 		this.cirurgia = cirurgia;
 		this.referencia = referencia;
 	}
@@ -50,20 +51,20 @@ public class Procedimento implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public TipoProcedimento getTipo() {
+		return TipoProcedimento.toEnum(tipo);
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setTipo(TipoProcedimento tipo) {
+		this.tipo = tipo.getCod();
 	}
 
-	public Integer getPremio() {
-		return premio;
+	public PremioProcedimento getPremio() {
+		return PremioProcedimento.toEnum(premio);
 	}
 
-	public void setPremio(Integer premio) {
-		this.premio = premio;
+	public void setPremio(PremioProcedimento premio) {
+		this.premio = premio.getCod();
 	}
 
 	public Cirurgia getCirurgia() {
