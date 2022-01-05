@@ -42,7 +42,7 @@ public class Procedimento implements Serializable {
 		this.cirurgia = cirurgia;
 		this.referencia = referencia;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}

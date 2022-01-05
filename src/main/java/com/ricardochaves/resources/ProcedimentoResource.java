@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ricardochaves.domain.Procedimento;
+import com.ricardochaves.dto.ProcedimentoDTO;
 import com.ricardochaves.form.ProcedimentoForm;
 import com.ricardochaves.form.ProcedimentoFormUpdate;
 import com.ricardochaves.services.ProcedimentoService;
@@ -27,9 +28,10 @@ public class ProcedimentoResource {
 	private ProcedimentoService procedimentoService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Procedimento> findById(@PathVariable Integer id) {
+	public ResponseEntity<ProcedimentoDTO> findById(@PathVariable Integer id) {
 		Procedimento obj = procedimentoService.findById(id);
-		return ResponseEntity.ok().body(obj); 
+		ProcedimentoDTO objDto = new ProcedimentoDTO(obj);
+		return ResponseEntity.ok().body(objDto); 
 	}
 	
 	@Transactional
