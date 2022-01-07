@@ -73,6 +73,16 @@ public class DBService {
 		Procedimento pro9 = new Procedimento(null, TipoProcedimento.PRINCIPAL, PremioProcedimento.TAREFABASICA, cir8, null);
 		Procedimento pro10 = new Procedimento(null, TipoProcedimento.PRINCIPAL, PremioProcedimento.TAREFABASICA, cir9, null);
 
+		cir1.getProcedimentos().addAll(Arrays.asList(pro1, pro2));
+		cir2.getProcedimentos().addAll(Arrays.asList(pro3));
+		cir3.getProcedimentos().addAll(Arrays.asList(pro4));
+		cir4.getProcedimentos().addAll(Arrays.asList(pro5));
+		cir5.getProcedimentos().addAll(Arrays.asList(pro6));
+		cir6.getProcedimentos().addAll(Arrays.asList(pro7));
+		cir7.getProcedimentos().addAll(Arrays.asList(pro8));
+		cir8.getProcedimentos().addAll(Arrays.asList(pro9));
+		cir9.getProcedimentos().addAll(Arrays.asList(pro10));
+		
 		procedimentoRepository.saveAll(Arrays.asList(pro1, pro2, pro3, pro4, pro5, pro6, pro7, pro8, pro9, pro10));
 		
 	}
