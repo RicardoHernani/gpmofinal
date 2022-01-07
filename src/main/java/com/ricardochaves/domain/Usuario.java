@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +22,7 @@ public class Usuario implements Serializable {
 	@Column(unique=true)
 	private String email;
 	
-
+	@JsonIgnore
 	private String senha;
 	
 	public Usuario() {		

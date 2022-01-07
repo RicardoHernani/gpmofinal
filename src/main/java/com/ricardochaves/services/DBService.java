@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ricardochaves.domain.Cirurgia;
@@ -20,6 +21,9 @@ import com.ricardochaves.repositories.UsuarioRepository;
 public class DBService {
 
 	@Autowired
+	private BCryptPasswordEncoder pe;
+	
+	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
@@ -31,9 +35,9 @@ public class DBService {
 	public void instantiateTestDatabase() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
-		Usuario usu1 = new Usuario(null, "Ricardo", "ricardo@gmail", "12345");
-		Usuario usu2 = new Usuario(null, "Débora", "debora@gmail", "1234567");
-		Usuario usu3 = new Usuario(null, "Ana", "ana@gmail", "12345417");
+		Usuario usu1 = new Usuario(null, "Ricardo", "ricardo@gmail", pe.encode("12345"));
+		Usuario usu2 = new Usuario(null, "Débora", "debora@gmail", pe.encode("1234567"));
+		Usuario usu3 = new Usuario(null, "Ana", "ana@gmail", pe.encode("12345417"));
 		
 		usuarioRepository.saveAll(Arrays.asList(usu1, usu2, usu3));
 		

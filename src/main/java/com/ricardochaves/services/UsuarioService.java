@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ricardochaves.domain.Usuario;
@@ -14,6 +15,9 @@ import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UsuarioService {
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -34,7 +38,7 @@ public class UsuarioService {
 	}
 	
 	public Usuario fromForm(UsuarioForm objForm) {
-		return new Usuario(objForm.getId(), objForm.getNome(), objForm.getEmail(), objForm.getSenha());
+		return new Usuario(objForm.getId(), objForm.getNome(), objForm.getEmail(), pe.encode(objForm.getSenha()));
 	}
 	
 	public Usuario update(Usuario objForm) {
