@@ -1,14 +1,21 @@
 package com.ricardochaves.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ricardochaves.enums.Perfil;
 
 @Entity
 public class Usuario implements Serializable {
@@ -25,7 +32,12 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
-	public Usuario() {		
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
+	public Usuario() {	
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Usuario(Integer id, String nome, String email, String senha) {
@@ -34,6 +46,8 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+		addPerfil(Perfil.USUARIO);
+
 	}
 
 	public Integer getId() {
@@ -66,6 +80,14 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
 	}
 
 	@Override

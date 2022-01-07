@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ricardochaves.domain.Cirurgia;
 import com.ricardochaves.domain.Procedimento;
 import com.ricardochaves.domain.Usuario;
+import com.ricardochaves.enums.Perfil;
 import com.ricardochaves.enums.PremioProcedimento;
 import com.ricardochaves.enums.TipoProcedimento;
 import com.ricardochaves.repositories.CirurgiaRepository;
@@ -36,6 +37,8 @@ public class DBService {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
 		Usuario usu1 = new Usuario(null, "Ricardo", "ricardo@gmail", pe.encode("12345"));
+		usu1.addPerfil(Perfil.ADMIN);
+		
 		Usuario usu2 = new Usuario(null, "Débora", "debora@gmail", pe.encode("1234567"));
 		Usuario usu3 = new Usuario(null, "Ana", "ana@gmail", pe.encode("12345417"));
 		
