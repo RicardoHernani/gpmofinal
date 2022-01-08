@@ -38,13 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] PUBLIC_MATCHERS = {            //Ajustar se depois for necessário
 			"/h2-console/**",
-			
+			"/referencias/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {       //Ajustar se depois for necessário. Depois de implementar o login retirar cirurgias e procedimentos
 			"/cirurgias/**",
 			"/procedimentos/**",
-			"/referencias/**",
 			"/usuarios/**"
 	};
 	
