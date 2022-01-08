@@ -15,20 +15,18 @@ public class DevConfig {
 	@Autowired
 	private DBService dbService;
 	
-	@Value("$(spring.jpa.hibernate.ddl-auto)")   //colocar {
-	private String strategy1;
-	
-	@Value("$(spring.sql.init.mode)")
+	@Value("${spring.jpa.hibernate.ddl-auto}")   			
+	private String strategy1;				   
+											  
+	@Value("${spring.sql.init.mode}")
 	private String strategy2;
-	
 		
 	@Bean
 	public boolean instantiateDatabase() {
 		
-	/*	if(!"create".equals(strategy1) && !"always".equals(strategy2)) {      //Não funcionou
+		if(!"create".equals(strategy1) && !"always".equals(strategy2)) {
 			return false;
 		}
-	*/
 		
 		dbService.instantiateTestDatabase();
 		return true;
