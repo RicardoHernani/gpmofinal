@@ -47,7 +47,7 @@ public class ReferenciaResource {
 	}
 	
 	@Transactional
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody Referencia obj) {
 		obj = referenciaService.insert(obj);
@@ -57,7 +57,7 @@ public class ReferenciaResource {
 	}
 	
 	@Transactional
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Referencia> delete(@PathVariable Integer id) {
 		referenciaService.delete(id);

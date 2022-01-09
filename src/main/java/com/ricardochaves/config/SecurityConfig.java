@@ -46,8 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = {       //Acessados mesmo nã
 			"/cirurgias/**",
 			"/procedimentos/**"
-	};
-	
+	};	
 	private static final String[] PUBLIC_MATCHERS_POST = {       //Para cadastrar usuarios.
 			"/usuarios/**"
 	};

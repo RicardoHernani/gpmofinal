@@ -30,14 +30,14 @@ public class UsuarioResource {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
 		Usuario obj = usuarioService.findById(id);
 		return ResponseEntity.ok().body(obj); 
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<UsuarioDTO>> findAll() {
 		List <Usuario> list = usuarioService.findAll();
@@ -65,7 +65,7 @@ public class UsuarioResource {
 	}
 	
 	@Transactional
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Usuario> delete(@PathVariable Integer id) {
 		usuarioService.delete(id);
