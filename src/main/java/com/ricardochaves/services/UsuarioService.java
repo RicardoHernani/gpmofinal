@@ -8,9 +8,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ricardochaves.domain.Usuario;
+import com.ricardochaves.enums.Perfil;
 import com.ricardochaves.form.UsuarioForm;
 import com.ricardochaves.form.UsuarioFormUpdate;
 import com.ricardochaves.repositories.UsuarioRepository;
+import com.ricardochaves.security.UserSS;
+import com.ricardochaves.services.exceptions.AuthorizationException;
 import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -23,6 +26,12 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 
 	public Usuario findById(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Usuario> obj = usuarioRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado! id: " + id
 				+ ", Tipo: " + Usuario.class.getName()));
