@@ -44,12 +44,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {       //Acessados mesmo nã
-			"/cirurgias/**",
-			"/procedimentos/**"
+			
+
 	};	
 	private static final String[] PUBLIC_MATCHERS_POST = {       //Para cadastrar usuarios.
 			"/usuarios/**"
 	};
+	
+	private static final String[] PUBLIC_MATCHERS_DELETE = {       
+			"/cirurgias/**",
+			"procedimentos/**"
+
+	};	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -63,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+			.antMatchers(HttpMethod.DELETE, PUBLIC_MATCHERS_DELETE).permitAll()
 			.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDatailsService));

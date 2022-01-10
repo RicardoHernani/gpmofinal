@@ -71,7 +71,17 @@ public class CirurgiaService {
 	}
 	
 	public void delete(Integer id) {
-		findById(id);
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		Cirurgia cirurgiaparadeletar = findById(id);
+		
+		if (user.getId() == cirurgiaparadeletar.getUsuario().getId()) {
 		cirurgiaRepository.deleteById(id);
+		
+		} else throw new AuthorizationException("Acesso negado");
+		
 	}
 }
