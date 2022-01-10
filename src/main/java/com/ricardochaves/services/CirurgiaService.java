@@ -52,7 +52,17 @@ public class CirurgiaService {
 	public Cirurgia fromForm(CirurgiaForm objForm) {
 		Usuario usu = usuarioRepository.getById(objForm.getUsuarioId());
 		Cirurgia cir = new Cirurgia(null, objForm.getMatricula(), objForm.getData(), usu);
+		
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		if (user.getId() == usu.getId()) {
 		return cir;
+		
+		} else throw new AuthorizationException("Você não tem permissão para acrescentar cirurgias para outro usuário");
+		
 	}
 	
 	public Cirurgia update(Cirurgia objForm) {
@@ -81,7 +91,7 @@ public class CirurgiaService {
 		if (user.getId() == cirurgiaparadeletar.getUsuario().getId()) {
 		cirurgiaRepository.deleteById(id);
 		
-		} else throw new AuthorizationException("Acesso negado");
+		} else throw new AuthorizationException("Você não tem permissão para deletar cirurgias de outro usuário");
 		
 	}
 }
