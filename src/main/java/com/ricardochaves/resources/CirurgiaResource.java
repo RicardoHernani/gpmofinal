@@ -39,17 +39,15 @@ public class CirurgiaResource {
 	
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<CirurgiaDTO>> buscarPorPeriodoPage(
-			@RequestParam(value="idUsuario", defaultValue="") String idUsuario, 
 			@RequestParam(value="dataInicial", defaultValue="") String dataInicial,
 			@RequestParam(value="dataFinal", defaultValue="") String dataFinal,
 			@RequestParam(value="page", defaultValue="0") Integer page,
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
 			@RequestParam(value="orderBy", defaultValue="data") String orderBy,
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
-			Integer idUser = Integer.parseInt(idUsuario);
 			LocalDate inicio = URL.convertDate(dataInicial, LocalDate.EPOCH);
 			LocalDate fim = URL.convertDate(dataFinal, LocalDate.now());
-			Page<CirurgiaDTO> list = cirurgiaService.encontrarPorData(idUser, inicio, fim, page, linesPerPage, orderBy, direction);
+			Page<CirurgiaDTO> list = cirurgiaService.encontrarPorData(null, inicio, fim, page, linesPerPage, orderBy, direction);
 			return ResponseEntity.ok().body(list);
 	}
 	

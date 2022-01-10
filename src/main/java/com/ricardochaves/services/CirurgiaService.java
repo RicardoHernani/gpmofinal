@@ -15,6 +15,8 @@ import com.ricardochaves.dto.CirurgiaDTO;
 import com.ricardochaves.form.CirurgiaForm;
 import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.UsuarioRepository;
+import com.ricardochaves.security.UserSS;
+import com.ricardochaves.services.exceptions.AuthorizationException;
 import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -33,7 +35,12 @@ public class CirurgiaService {
 	}
 	
 	public Page<CirurgiaDTO> encontrarPorData(Integer idUsuario, LocalDate dataInicial, LocalDate dataFinal, Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		idUsuario = user.getId();
 		return cirurgiaRepository.dateIntervalSearch(idUsuario, dataInicial, dataFinal, pageRequest);
 	}
 	
