@@ -65,10 +65,19 @@ public class CirurgiaService {
 		
 	}
 	
+	
 	public Cirurgia update(Cirurgia objForm) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Cirurgia newObj = findById(objForm.getId());
-		updateData(newObj, objForm);
-		return cirurgiaRepository.save(newObj);
+		
+		if (user.getId() == newObj.getUsuario().getId()) {
+			updateData(newObj, objForm);
+			return cirurgiaRepository.save(newObj);
+		} else throw new AuthorizationException("Você não tem permissão para atualizar cirurgias de outro usuário");
 	}
 	
 	public Cirurgia fromFormUpdate(CirurgiaForm objForm) {												 
@@ -86,10 +95,10 @@ public class CirurgiaService {
 			throw new AuthorizationException("Acesso negado");
 		}
 		
-		Cirurgia cirurgiaparadeletar = findById(id);
+		Cirurgia cirurgiaParaDeletar = findById(id);
 		
-		if (user.getId() == cirurgiaparadeletar.getUsuario().getId()) {
-		cirurgiaRepository.deleteById(id);
+		if (user.getId() == cirurgiaParaDeletar.getUsuario().getId()) {
+			cirurgiaRepository.deleteById(id);
 		
 		} else throw new AuthorizationException("Você não tem permissão para deletar cirurgias de outro usuário");
 		
