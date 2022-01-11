@@ -15,6 +15,8 @@ import com.ricardochaves.form.ProcedimentoFormUpdate;
 import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.ProcedimentoRepository;
 import com.ricardochaves.repositories.ReferenciaRepository;
+import com.ricardochaves.security.UserSS;
+import com.ricardochaves.services.exceptions.AuthorizationException;
 import com.ricardochaves.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -67,8 +69,18 @@ public class ProcedimentoService {
 	}
 	
 	public void delete(Integer id) {
-		findById(id);
-		procedimentoRepository.deleteById(id);
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		Procedimento procedimentoAlvo = findById(id);
+		Optional<Cirurgia> cirurgiaAlvo = cirurgiaRepository.findByCirurgiaProcedimentoId(procedimentoAlvo.getId());
+		
+		if (user.getId() == cirurgiaAlvo.get().getUsuario().getId()) {
+			
+			procedimentoRepository.deleteById(id);
+			
+		} else throw new AuthorizationException("Você não tem permissão para deletar procedimentos de outros usuários");
 	}
 	
 }
