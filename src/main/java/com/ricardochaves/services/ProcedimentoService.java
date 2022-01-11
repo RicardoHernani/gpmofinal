@@ -47,7 +47,18 @@ public class ProcedimentoService {
 		Cirurgia cir = cirurgiaRepository.getById(objForm.getCirurgiaId());
 		Procedimento pro = new Procedimento(null, TipoProcedimento.toEnum(objForm.getTipo()), PremioProcedimento.toEnum(objForm.getPremio()), cir, ref);
 		cir.getProcedimentos().add(pro);
+		
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		Optional<Cirurgia> cirurgiaAlvo = cirurgiaRepository.findById(objForm.getCirurgiaId());
+		if (user.getId() == cirurgiaAlvo.get().getUsuario().getId()) {
 		return pro;
+		
+		} else throw new AuthorizationException("Você não tem permissão para adicionar procedimentos de outros usuários");
+		
 	}
 	
 	public Procedimento update(Procedimento obj) {
@@ -73,6 +84,7 @@ public class ProcedimentoService {
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
 		}
+		
 		Procedimento procedimentoAlvo = findById(id);
 		Optional<Cirurgia> cirurgiaAlvo = cirurgiaRepository.findByCirurgiaProcedimentoId(procedimentoAlvo.getId());
 		
