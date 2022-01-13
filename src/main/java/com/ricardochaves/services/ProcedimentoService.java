@@ -62,9 +62,18 @@ public class ProcedimentoService {
 	}
 	
 	public Procedimento update(Procedimento obj) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Procedimento newObj = findById(obj.getId());
-		updateData(newObj, obj);
-		return procedimentoRepository.save(newObj);
+		
+		if (user.getId() == newObj.getCirurgia().getUsuario().getId()) {
+			updateData(newObj, obj);
+			return procedimentoRepository.save(newObj);
+			
+		} else throw new AuthorizationException("Você não tem permissão para atualizar procedimentos de outro usuário");		
 	}
 	
 	public Procedimento fromFormUpdate(ProcedimentoFormUpdate objForm) {						 				 
