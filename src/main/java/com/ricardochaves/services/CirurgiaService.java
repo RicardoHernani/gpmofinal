@@ -29,9 +29,17 @@ public class CirurgiaService {
 	private UsuarioRepository usuarioRepository;
 	
 	public Cirurgia findById(Integer id) {
-		Optional<Cirurgia> obj = cirurgiaRepository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Cirurgia não encontrada! id: " + id
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		if(user.getId() == (cirurgiaRepository.findById(id)).get().getUsuario().getId()){
+			Optional<Cirurgia> obj = cirurgiaRepository.findById(id);
+			return obj.orElseThrow(() -> new ObjectNotFoundException("Cirurgia não encontrada! id: " + id
 				+ ", Tipo: " + Cirurgia.class.getName()));
+			
+		} else throw new AuthorizationException("Você não tem permissão para acessar cirurgias de outro usuário");
 	}
 	
 	public Page<CirurgiaDTO> encontrarPorData(Integer idUsuario, LocalDate dataInicial, LocalDate dataFinal, Integer page, Integer linesPerPage, String orderBy, String direction) {
