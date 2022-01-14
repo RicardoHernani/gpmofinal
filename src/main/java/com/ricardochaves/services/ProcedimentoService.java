@@ -17,7 +17,7 @@ import com.ricardochaves.repositories.ProcedimentoRepository;
 import com.ricardochaves.repositories.ReferenciaRepository;
 import com.ricardochaves.security.UserSS;
 import com.ricardochaves.services.exceptions.AuthorizationException;
-import com.ricardochaves.services.exceptions.ObjectNotFoundException;
+import com.ricardochaves.services.exceptions.NoSuchElementException;
 
 @Service
 public class ProcedimentoService {
@@ -32,9 +32,22 @@ public class ProcedimentoService {
 	private CirurgiaRepository cirurgiaRepository;
 	
 	public Procedimento findById(Integer id) {
-		Optional<Procedimento> obj = procedimentoRepository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Procedimento não encontrado! id: " + id
-				+ ", Tipo: " + Procedimento.class.getName()));
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		Optional<Procedimento> procedimentoAlvo = procedimentoRepository.findById(id);
+		Optional<Cirurgia> cirurgiaAlvo = cirurgiaRepository.findByCirurgiaProcedimentoId(procedimentoAlvo.get().getId());
+		
+		if (user.getId() == cirurgiaAlvo.get().getUsuario().getId()) {	
+			Optional<Procedimento> obj = procedimentoRepository.findById(id);
+			return obj.orElseThrow(() -> new NoSuchElementException("Procedimento não encontrada! id: " + id
+					+ ", Tipo: " + Cirurgia.class.getName()));
+		
+		} else throw new AuthorizationException("Você não tem permissão para acessar procedimentos de outro usuário");
+		
+		
 	}
 	
 	public Procedimento insert(Procedimento obj) {
@@ -101,7 +114,7 @@ public class ProcedimentoService {
 			
 			procedimentoRepository.deleteById(id);
 			
-		} else throw new AuthorizationException("Você não tem permissão para deletar procedimentos de outros usuários");
+		} else throw new AuthorizationException("Você não tem permissão para apagar procedimentos de outros usuários");
 	}
 	
 }

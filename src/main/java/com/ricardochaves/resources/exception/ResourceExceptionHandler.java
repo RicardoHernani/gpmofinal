@@ -1,5 +1,7 @@
 package com.ricardochaves.resources.exception;
 
+import java.util.NoSuchElementException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -44,6 +46,13 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.FORBIDDEN;
 		StandardError err = new StandardError(status.value(), "Acesso negado", System.currentTimeMillis(), e.getMessage());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<StandardError> noSuchElement(NoSuchElementException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		StandardError err = new StandardError(status.value(), "Não encontrado", System.currentTimeMillis(), e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 	

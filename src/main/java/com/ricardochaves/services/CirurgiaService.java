@@ -17,7 +17,7 @@ import com.ricardochaves.repositories.CirurgiaRepository;
 import com.ricardochaves.repositories.UsuarioRepository;
 import com.ricardochaves.security.UserSS;
 import com.ricardochaves.services.exceptions.AuthorizationException;
-import com.ricardochaves.services.exceptions.ObjectNotFoundException;
+import com.ricardochaves.services.exceptions.NoSuchElementException;
 
 @Service
 public class CirurgiaService {
@@ -36,7 +36,7 @@ public class CirurgiaService {
 		
 		if(user.getId() == (cirurgiaRepository.findById(id)).get().getUsuario().getId()){
 			Optional<Cirurgia> obj = cirurgiaRepository.findById(id);
-			return obj.orElseThrow(() -> new ObjectNotFoundException("Cirurgia não encontrada! id: " + id
+			return obj.orElseThrow(() -> new NoSuchElementException("Cirurgia não encontrada! id: " + id
 				+ ", Tipo: " + Cirurgia.class.getName()));
 			
 		} else throw new AuthorizationException("Você não tem permissão para acessar cirurgias de outro usuário");
