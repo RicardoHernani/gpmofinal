@@ -15,7 +15,7 @@ public class JWTUtil {
 	@Value("${jwt.secret}")
 	private String secret;
 	
-	@Value("${jwt.expiration}")
+	@Value("${gpmofinal.jwt.expiration}")
 	private Long expiration;
 	
 	public String generateToken(String username) {
