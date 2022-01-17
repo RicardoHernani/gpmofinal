@@ -36,7 +36,7 @@ public class DBService {
 	public void instantiateTestDatabase() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
-		Usuario usu1 = new Usuario(null, "Ricardo", "ricardo@gmail", pe.encode("12345"));
+		Usuario usu1 = new Usuario(null, "Ricardo", "rhac.sistemas@gmail.com", pe.encode("12345"));
 		usu1.addPerfil(Perfil.ADMIN);
 		
 		Usuario usu2 = new Usuario(null, "Débora", "debora@gmail", pe.encode("123456"));

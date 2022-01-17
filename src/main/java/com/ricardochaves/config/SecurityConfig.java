@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	};	
 	private static final String[] PUBLIC_MATCHERS_POST = {       //Para cadastrar usuarios.
-			"/usuarios/**"
+			"/usuarios/**",
+			"/auth/forgot/**"
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_DELETE = {       
