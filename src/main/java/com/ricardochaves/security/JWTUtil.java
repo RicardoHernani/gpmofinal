@@ -12,7 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JWTUtil {
 
-	@Value("${jwt.secret}")
+	@Value("${gpmofinal.jwt.secret}")
 	private String secret;
 	
 	@Value("${gpmofinal.jwt.expiration}")

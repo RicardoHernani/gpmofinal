@@ -57,7 +57,7 @@ public class UsuarioService {
 	}
 	
 	public Usuario fromFormUpdate(UsuarioFormUpdate objForm) {												 
-		return new Usuario(null, null, null, objForm.getSenha());	
+		return new Usuario(null, null, null, pe.encode(objForm.getSenha()));	
 	}
 	
 	private void updateData(Usuario newObj, Usuario obj) {

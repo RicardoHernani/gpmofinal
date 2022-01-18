@@ -9,7 +9,7 @@ import com.ricardochaves.domain.Usuario;
 
 public abstract class AbstractEmailService implements EmailService {
 
-	@Value("${default.sender}")
+	@Value("${gpmofinal.default.sender}")
 	private String sender;
 	
 	@Override

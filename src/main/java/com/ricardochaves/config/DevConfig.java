@@ -15,10 +15,10 @@ public class DevConfig {
 	@Autowired
 	private DBService dbService;
 	
-	@Value("${spring.jpa.hibernate.ddl-auto}")   			
+	@Value("${gpmofinal.spring.jpa.hibernate.ddl-auto}")   			
 	private String strategy1;				   
 											  
-	@Value("${spring.sql.init.mode}")
+	@Value("${gpmofinal.spring.sql.init.mode}")
 	private String strategy2;
 		
 	@Bean
